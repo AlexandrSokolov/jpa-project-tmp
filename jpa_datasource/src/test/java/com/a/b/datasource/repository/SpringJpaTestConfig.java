@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -34,12 +35,14 @@ public class SpringJpaTestConfig {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
     dataSource.setUrl(env.getProperty("jdbc.url"));
+    //dataSource.setSchema("PUBLIC");
 //    dataSource.setUsername(env.getProperty("jdbc.user"));
 //    dataSource.setPassword(env.getProperty("jdbc.pass"));
     return dataSource;
   }
 
   @Bean
+  @DependsOn("springLiquibase") //to create schema with liquibase before schema validation by hibernate
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
@@ -63,7 +66,7 @@ public class SpringJpaTestConfig {
     SpringLiquibase liquibase = new SpringLiquibase();
     liquibase.setDropFirst(true);
     liquibase.setDataSource(dataSource);
-    liquibase.setDefaultSchema(env.getProperty("jdbc.db.name"));
+    //liquibase.setDefaultSchema(env.getProperty("jdbc.db.name"));
     //liquibase.setIgnoreClasspathPrefix(false);
     liquibase.setChangeLog("classpath:/db/changelog/db.changelog-master.yml");
     return liquibase;
@@ -76,6 +79,9 @@ public class SpringJpaTestConfig {
     hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
     hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
     hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+    hibernateProperties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+    hibernateProperties.setProperty("hibernate.use_sql_comments", env.getProperty("hibernate.use_sql_comments"));
+    hibernateProperties.setProperty("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
 
     return hibernateProperties;
   }
@@ -84,6 +90,9 @@ public class SpringJpaTestConfig {
     String CREATE_SCHEMA_QUERY = String.format(
       "CREATE SCHEMA IF NOT EXISTS %s",
       env.getProperty("jdbc.db.name"));
-    dataSource.getConnection().createStatement().execute(CREATE_SCHEMA_QUERY);
+    dataSource
+      .getConnection()
+      .createStatement()
+      .execute(CREATE_SCHEMA_QUERY);
   }
 }

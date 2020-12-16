@@ -10,8 +10,9 @@ import javax.persistence.Table;
 import static com.a.b.datasource.entities.EntityExample.Persistence.COLUMN_NAME;
 import static com.a.b.datasource.entities.EntityExample.Persistence.TABLE_NAME;
 
-@Entity
-@Table(name = "not_existing_table")
+//to avoid validation
+//@Entity
+//@Table(name = "not_existing_table")
 public class NotValidEntity {
 
   @Id

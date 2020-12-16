@@ -1,5 +1,6 @@
 package com.a.b.datasource.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.a.b.datasource.entities.EntityExample;
 import com.a.b.datasource.entities.NotValidEntity;
+import com.a.b.datasource.entities.Status;
 
 //without DataJpaTest
 @RunWith(SpringRunner.class) //alternative is SpringJUnit4ClassRunner.class
@@ -40,6 +42,8 @@ public class EntityExampleRepositoryTest {
     EntityExample example = new EntityExample();
     //example.setId(10);
     example.setName("test");
+    example.setLocalDateTime(LocalDateTime.now());
+//    example.setStatus(Status.CREATED);
 
     //entityExampleRepository.saveAndFlush(example);
     entityManager.persist(example);

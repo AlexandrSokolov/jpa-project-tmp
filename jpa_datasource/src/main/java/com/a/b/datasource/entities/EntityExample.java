@@ -12,6 +12,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -70,97 +72,105 @@ public class EntityExample {
   public EntityExample(){}
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
+  @TableGenerator(
+    name="id_generator",
+    table="hibernate_sequence",
+    pkColumnName = "sequence_name",
+    pkColumnValue = "example",
+    valueColumnName = "next_val") //default //sequence_next_hi_value
   private long id;
 
   @Column(name=COLUMN_NAME, unique = false, nullable = true, length = 1024)
   private String name;
 
-  @Column(name="not_existing_name", unique = false, nullable = true, length = 1024)
-  private String notExitingName;
+//  @Column(name="not_existing_name", unique = false, nullable = true, length = 1024)
+//  private String notExitingName;
+//
+//  public String getNotExitingName() {
+//    return notExitingName;
+//  }
+//
+//  public void setNotExitingName(String notExitingName) {
+//    this.notExitingName = notExitingName;
+//  }
 
-  public String getNotExitingName() {
-    return notExitingName;
-  }
+//  @Type
+//  @Enumerated(EnumType.STRING)
+//  private Status status;
 
-  public void setNotExitingName(String notExitingName) {
-    this.notExitingName = notExitingName;
-  }
+//  //liquibase type: tinyint
+//  @Column(name="smallest_int")
+//  private short smallestInt;
 
-  @Enumerated(EnumType.STRING)
-  private Status status;
+//  //liquibase type: smallint
+//  @Column(name="small_int")
+//  private short smallInt;
 
-  //liquibase type: tinyint
-  @Column(name="smallest_int")
-  private short smallestInt;
+//  //liquibase type: number
+//  private int number1;
 
-  //liquibase type: smallint
-  @Column(name="small_int")
-  private short smallInt;
+//  //liquibase type: int
+//  private int number2;
+//
+//  //liquibase type: bigint
+//  @Column(name="big_number")
+//  private long bigNumber;
+//
+//  //liquibase type: currency
+//  private BigDecimal money;
 
-  //liquibase type: number
-  private int number1;
+//  @Column(name="float_field")
+//  private float floatField;
 
-  //liquibase type: int
-  private int number2;
-
-  //liquibase type: bigint
-  @Column(name="big_number")
-  private long bigNumber;
-
-  //liquibase type: currency
-  private BigDecimal money;
-
-  @Column(name="float_field")
-  private float floatField;
-
-  @Column(name="double_field")
-  private double doubleField;
-
-  @Column(name="decimal_field")
-  private BigDecimal decimalField;
+//  @Column(name="double_field")
+//  private double doubleField;
+//
+//  @Column(name="decimal_field")
+//  private BigDecimal decimalField;
 
   ///////   new java 8 date time api ///////////////////
   //liquibase: datetime
-  @Column(name="instant_field")
-  private Instant instantField;
-
-  //liquibase: datetime
-  @Column(name="offset_date_time")
-  private OffsetDateTime offsetDateTime;
-
-  //liquibase: datetime
-  @Column(name="zoned_date_time")
-  private ZonedDateTime zonedDateTime;
+//  @Column(name="instant_field")
+//  private Instant instantField;
+//
+//  //liquibase: datetime
+//  @Column(name="offset_date_time")
+//  private OffsetDateTime offsetDateTime;
+//
+//  //liquibase: datetime
+//  @Column(name="zoned_date_time")
+//  private ZonedDateTime zonedDateTime;
 
   //liquibase: datetime
   @Column(name="local_date_time")
   private LocalDateTime localDateTime;
 
-  //liquibase: date
-  @Column(name="local_date")
-  private LocalDate localDate;
+//  //liquibase: date
+//  @Column(name="local_date")
+//  private LocalDate localDate;
+//
+//  //liquibase: time
+//  @Column(name="local_time")
+//  private LocalTime localTime;
+//
+//  ///////   old java 8 date time api ///////////////////
+//  //liquibase: datetime
+//  @Column(name="java_date")
+//  private Date javaDate;
 
-  //liquibase: time
-  @Column(name="local_time")
-  private LocalTime localTime;
+//  //liquibase: date
+//  @Column(name="java_only_date")
+//  private Date javaOnlyDate;
 
-  ///////   old java 8 date time api ///////////////////
-  //liquibase: datetime
-  @Column(name="java_date")
-  private Date javaDate;
-
-  //liquibase: date
-  @Column(name="java_only_date")
-  private Date javaOnlyDate;
-
-  //liquibase: datetime
-  @Column(name="sql_date")
-  private java.sql.Date sqlDate;
-
-  //liquibase: timestamp
-  @Column(name="sql_timestamp")
-  private Timestamp sqlTimestamp;
+//  //liquibase: datetime
+//  @Column(name="sql_date")
+//  private java.sql.Date sqlDate;
+//
+//  //liquibase: timestamp
+//  @Column(name="sql_timestamp")
+//  private Timestamp sqlTimestamp;
 
   public long getId() {
     return id;
@@ -178,109 +188,109 @@ public class EntityExample {
     this.name = name;
   }
 
-  public Status getStatus() {
-    return status;
-  }
+//  public Status getStatus() {
+//    return status;
+//  }
+//
+//  public void setStatus(Status status) {
+//    this.status = status;
+//  }
 
-  public void setStatus(Status status) {
-    this.status = status;
-  }
+//  public short getSmallestInt() {
+//    return smallestInt;
+//  }
+//
+//  public void setSmallestInt(short smallestInt) {
+//    this.smallestInt = smallestInt;
+//  }
+//
+//  public short getSmallInt() {
+//    return smallInt;
+//  }
+//
+//  public void setSmallInt(short smallInt) {
+//    this.smallInt = smallInt;
+//  }
 
-  public short getSmallestInt() {
-    return smallestInt;
-  }
+//  public int getNumber1() {
+//    return number1;
+//  }
+//
+//  public void setNumber1(int number1) {
+//    this.number1 = number1;
+//  }
 
-  public void setSmallestInt(short smallestInt) {
-    this.smallestInt = smallestInt;
-  }
+//  public int getNumber2() {
+//    return number2;
+//  }
+//
+//  public void setNumber2(int number2) {
+//    this.number2 = number2;
+//  }
+//
+//  public long getBigNumber() {
+//    return bigNumber;
+//  }
+//
+//  public void setBigNumber(long bigNumber) {
+//    this.bigNumber = bigNumber;
+//  }
+//
+//  public BigDecimal getMoney() {
+//    return money;
+//  }
+//
+//  public void setMoney(BigDecimal money) {
+//    this.money = money;
+//  }
 
-  public short getSmallInt() {
-    return smallInt;
-  }
+//  public float getFloatField() {
+//    return floatField;
+//  }
 
-  public void setSmallInt(short smallInt) {
-    this.smallInt = smallInt;
-  }
+//  public void setFloatField(float floatField) {
+//    this.floatField = floatField;
+//  }
 
-  public int getNumber1() {
-    return number1;
-  }
-
-  public void setNumber1(int number1) {
-    this.number1 = number1;
-  }
-
-  public int getNumber2() {
-    return number2;
-  }
-
-  public void setNumber2(int number2) {
-    this.number2 = number2;
-  }
-
-  public long getBigNumber() {
-    return bigNumber;
-  }
-
-  public void setBigNumber(long bigNumber) {
-    this.bigNumber = bigNumber;
-  }
-
-  public BigDecimal getMoney() {
-    return money;
-  }
-
-  public void setMoney(BigDecimal money) {
-    this.money = money;
-  }
-
-  public float getFloatField() {
-    return floatField;
-  }
-
-  public void setFloatField(float floatField) {
-    this.floatField = floatField;
-  }
-
-  public double getDoubleField() {
-    return doubleField;
-  }
-
-  public void setDoubleField(double doubleField) {
-    this.doubleField = doubleField;
-  }
-
-  public BigDecimal getDecimalField() {
-    return decimalField;
-  }
-
-  public void setDecimalField(BigDecimal decimalField) {
-    this.decimalField = decimalField;
-  }
-
-  public Instant getInstantField() {
-    return instantField;
-  }
-
-  public void setInstantField(Instant instantField) {
-    this.instantField = instantField;
-  }
-
-  public OffsetDateTime getOffsetDateTime() {
-    return offsetDateTime;
-  }
-
-  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
-  }
-
-  public ZonedDateTime getZonedDateTime() {
-    return zonedDateTime;
-  }
-
-  public void setZonedDateTime(ZonedDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
-  }
+//  public double getDoubleField() {
+//    return doubleField;
+//  }
+//
+//  public void setDoubleField(double doubleField) {
+//    this.doubleField = doubleField;
+//  }
+//
+//  public BigDecimal getDecimalField() {
+//    return decimalField;
+//  }
+//
+//  public void setDecimalField(BigDecimal decimalField) {
+//    this.decimalField = decimalField;
+//  }
+//
+//  public Instant getInstantField() {
+//    return instantField;
+//  }
+//
+//  public void setInstantField(Instant instantField) {
+//    this.instantField = instantField;
+//  }
+//
+//  public OffsetDateTime getOffsetDateTime() {
+//    return offsetDateTime;
+//  }
+//
+//  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+//    this.offsetDateTime = offsetDateTime;
+//  }
+//
+//  public ZonedDateTime getZonedDateTime() {
+//    return zonedDateTime;
+//  }
+//
+//  public void setZonedDateTime(ZonedDateTime zonedDateTime) {
+//    this.zonedDateTime = zonedDateTime;
+//  }
 
   public LocalDateTime getLocalDateTime() {
     return localDateTime;
@@ -290,51 +300,51 @@ public class EntityExample {
     this.localDateTime = localDateTime;
   }
 
-  public LocalDate getLocalDate() {
-    return localDate;
-  }
+//  public LocalDate getLocalDate() {
+//    return localDate;
+//  }
+//
+//  public void setLocalDate(LocalDate localDate) {
+//    this.localDate = localDate;
+//  }
+//
+//  public LocalTime getLocalTime() {
+//    return localTime;
+//  }
+//
+//  public void setLocalTime(LocalTime localTime) {
+//    this.localTime = localTime;
+//  }
+//
+//  public Date getJavaDate() {
+//    return javaDate != null ? (Date) javaDate.clone() : null;
+//  }
+//
+//  public void setJavaDate(Date javaDate) {
+//    this.javaDate = javaDate != null ? (Date) javaDate.clone() : null;
+//  }
 
-  public void setLocalDate(LocalDate localDate) {
-    this.localDate = localDate;
-  }
+//  public Date getJavaOnlyDate() {
+//    return javaOnlyDate != null ? (Date) javaOnlyDate.clone() : null;
+//  }
+//
+//  public void setJavaOnlyDate(Date javaOnlyDate) {
+//    this.javaOnlyDate = javaOnlyDate != null ? (Date) javaOnlyDate.clone() : null;
+//  }
 
-  public LocalTime getLocalTime() {
-    return localTime;
-  }
-
-  public void setLocalTime(LocalTime localTime) {
-    this.localTime = localTime;
-  }
-
-  public Date getJavaDate() {
-    return javaDate != null ? (Date) javaDate.clone() : null;
-  }
-
-  public void setJavaDate(Date javaDate) {
-    this.javaDate = javaDate != null ? (Date) javaDate.clone() : null;
-  }
-
-  public Date getJavaOnlyDate() {
-    return javaOnlyDate != null ? (Date) javaOnlyDate.clone() : null;
-  }
-
-  public void setJavaOnlyDate(Date javaOnlyDate) {
-    this.javaOnlyDate = javaOnlyDate != null ? (Date) javaOnlyDate.clone() : null;
-  }
-
-  public java.sql.Date getSqlDate() {
-    return sqlDate != null ? (java.sql.Date) sqlDate.clone() : null;
-  }
-
-  public void setSqlDate(java.sql.Date sqlDate) {
-    this.sqlDate = sqlDate != null ? (java.sql.Date) sqlDate.clone() : null;
-  }
-
-  public Timestamp getSqlTimestamp() {
-    return sqlTimestamp != null ? (Timestamp) sqlTimestamp.clone() : null;
-  }
-
-  public void setSqlTimestamp(Timestamp sqlTimestamp) {
-    this.sqlTimestamp = sqlTimestamp != null ? (Timestamp) sqlTimestamp.clone() : null;
-  }
+//  public java.sql.Date getSqlDate() {
+//    return sqlDate != null ? (java.sql.Date) sqlDate.clone() : null;
+//  }
+//
+//  public void setSqlDate(java.sql.Date sqlDate) {
+//    this.sqlDate = sqlDate != null ? (java.sql.Date) sqlDate.clone() : null;
+//  }
+//
+//  public Timestamp getSqlTimestamp() {
+//    return sqlTimestamp != null ? (Timestamp) sqlTimestamp.clone() : null;
+//  }
+//
+//  public void setSqlTimestamp(Timestamp sqlTimestamp) {
+//    this.sqlTimestamp = sqlTimestamp != null ? (Timestamp) sqlTimestamp.clone() : null;
+//  }
 }
