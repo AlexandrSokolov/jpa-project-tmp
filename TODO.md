@@ -1,3 +1,10 @@
+- add dependency on
+  <dependency>
+  <groupId>org.hibernate</groupId>
+  <artifactId>hibernate-core</artifactId>
+  <version>4.3.11.Final</version>
+  </dependency>
+  
 - test with automatic configuration (test if only liquibase generates table)
   https://stackoverflow.com/questions/23435937/how-to-test-spring-data-repositories
   
@@ -15,12 +22,15 @@
   https://www.baeldung.com/hibernate-lob
   https://stackoverflow.com/questions/1944660/hibernate-database-specific-columndefinition-values
 - test all queries
+  https://www.baeldung.com/jpa-join-types
 - load initial data with dbunit
 - add tests into code generation
 - testing only queries, without liquibase generation
 - create jpa-spring-cdi-liquibase
 - create jpa-spring-liquibase
 - create project for entity mapping, with liquibase
+  https://vladmihalcea.com/how-to-map-the-latest-child-of-a-parent-entity-using-hibernate-joinformula/
+  https://stackoverflow.com/questions/44590334/jpa-onetomany-get-latest-record-by-date-from-join
 - create project for entity mapping, with all id generators
     
     1. table generation
