@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.a.b.datasource.repository")
 @PropertySource("test.persistence.properties")
 @EnableTransactionManagement
-public class SpringJpaTestConfig {
+public class SpringJpaTestInMemoryConfig {
 
   @Autowired
   private Environment env;
@@ -62,7 +62,7 @@ public class SpringJpaTestConfig {
 
   @Bean
   public SpringLiquibase springLiquibase(DataSource dataSource) throws SQLException {
-    tryToCreateSchema(dataSource);
+   // tryToCreateSchema(dataSource);
     SpringLiquibase liquibase = new SpringLiquibase();
     liquibase.setDropFirst(true);
     liquibase.setDataSource(dataSource);

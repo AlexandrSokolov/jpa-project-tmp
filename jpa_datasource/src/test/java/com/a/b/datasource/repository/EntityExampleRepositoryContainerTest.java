@@ -20,10 +20,10 @@ import com.a.b.datasource.entities.NotValidEntity;
 //without DataJpaTest
 @RunWith(SpringRunner.class) //alternative is SpringJUnit4ClassRunner.class
 @ContextConfiguration(
-  classes = { SpringJpaTestInMemoryConfig.class }
+  classes = { SpringJpaTestContainerConfig.class }
   /*, loader = AnnotationConfigContextLoader.class */ )
 @Transactional
-public class EntityExampleRepositoryTest {
+public class EntityExampleRepositoryContainerTest {
 
   @Autowired private DataSource dataSource;
   @Autowired private EntityManager entityManager;

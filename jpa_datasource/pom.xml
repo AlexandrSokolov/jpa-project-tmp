@@ -64,6 +64,26 @@
       <version>1.4.200</version>
       <scope>test</scope>
     </dependency>
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.testcontainers/testcontainers &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.testcontainers</groupId>-->
+<!--      <artifactId>testcontainers</artifactId>-->
+<!--      <version>1.15.1</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.49</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>mysql</artifactId>
+      <version>1.15.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
